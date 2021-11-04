@@ -15,6 +15,12 @@ async function makeAPIRequest(requestURL) {
     }
 }
 
+function buttonClick() {
+    var userName = document.getElementById("userName").value
+    getAge(userName)
+    console.log(userName)
+}
+
 function updateCardsWithForecast(forecast) {
 
     // Log our Forecast object
@@ -53,16 +59,15 @@ function updateCardsWithForecast(forecast) {
 
 }
 
+function getAge( userName ) {
 
-function getForecast() {
+    console.log("getting age of " + userName)
 
-    console.log("getting forecast...")
-
-    var forecastURL = "https://api.weather.gov/gridpoints/GJT/95,101/forecast"
+    var URL = "https://api.agify.io/?name=" + userName
 
     // Call Helper Function to make the API request and parse the JSON
     // Use JavaScript Promise to handle the response asynchronously 
-    makeAPIRequest(forecastURL).then(response => {
+    makeAPIRequest(URL).then(response => {
 
         // Log the full response
         console.log("Full Response: ")
@@ -70,10 +75,10 @@ function getForecast() {
 
         // Process the Important Weather Data
         // call updateCardsWithForecast function and pass response.properties.periods as a parameter
-        updateCardsWithForecast(response.properties.periods)
+        //updateCardsWithForecast(response.properties.periods)
 
         console.log("finished making API request")
+        //alert(userName + " is normally " + response.age + " years old")
+        document.getElementById("age").innerHTML = response.age
     })
 }
-
-getForecast()
